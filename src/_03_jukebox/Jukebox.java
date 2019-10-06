@@ -5,6 +5,8 @@ package _03_jukebox;
  */
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -12,7 +14,10 @@ import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -20,10 +25,16 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 /*   If you don't have javazoom.jar in your project, you can download it from here: http://bit.ly/javazoom
  *   Right click your project and add it as a JAR (Under Java Build Path > Libraries).*/
 
-public class Jukebox implements Runnable {
+public class Jukebox implements Runnable, ActionListener {
+	Song AcousticBreeze = new Song("ab.mp3");
+    Song CreativeMinds = new Song("cm.mp3");
+	 
+    JButton Acoustic = new JButton("Acoustic Breeze");
+    JButton Creative = new JButton("Creative Minds");
 
     public void run() {
-
+    	
+        
 		// 1. Find an mp3 on your computer or on the Internet.
 		// 2. Create a Song object for that mp3
 
@@ -36,15 +47,39 @@ public class Jukebox implements Runnable {
 		 * cover is clicked, stop the currently playing song, and play the one
 		 * that was selected.
 		 */
+   
+    JFrame frame = new JFrame();
+    frame.setVisible(true);
+    JPanel panel = new JPanel();
+    
+    Acoustic.addActionListener(this);
+    
+    Creative.addActionListener(this);
+    panel.add(Acoustic);
+    panel.add(Creative);
+    frame.add(panel);
+    frame.pack();
+    
+   
     }
-    
-    
 	/* Use this method to add album covers to your Panel. */
 	private JLabel loadImage(String fileName) {
 		URL imageURL = getClass().getResource(fileName);
 		Icon icon = new ImageIcon(imageURL);
 		return new JLabel(icon);
 	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		 if (e.getSource().equals(Acoustic)) {
+			   CreativeMinds.stop();
+			 AcousticBreeze.play();							   
+		 }
+		 if (e.getSource().equals(Creative)) {
+			    AcousticBreeze.stop();
+			 CreativeMinds.play();		    
+		 }
+	} 
 
 }
 
