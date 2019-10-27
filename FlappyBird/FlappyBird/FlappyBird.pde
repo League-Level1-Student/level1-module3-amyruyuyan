@@ -5,10 +5,11 @@ int gravity = 1;
 int pipeX = 233;
 int pipeY = 0;
 int pipe2X = 233;
-int pipe2Y = 320;
-int pipeGap = 34;
-int upperPipeHeight = 0;
-int lowerPipeTop = 0;
+int pipeGap = 80;
+int upperPipeHeight =  (int) random(100, 400);
+int lowerPipeTop = upperPipeHeight + pipeGap;
+int lowerPipeHeight = height - upperPipeHeight - pipeGap;
+
 int score = 0;
 
 boolean gameOver = false;
@@ -30,11 +31,11 @@ if(mousePressed){
   birdY = birdY - 10;
 }
 fill(#2CD12D);
-rect(pipeX, pipeY, 30, 200);
+rect(pipeX, pipeY, 30, upperPipeHeight);
 pipeX = pipeX + 2;
 
 fill(#2CD12D);
-rect(pipe2X, pipe2Y, 30, 200);
+rect(pipe2X, lowerPipeTop, 30, lowerPipeHeight);
 pipe2X = pipe2X + 2;
 
 if(pipeX >= 400){
@@ -74,5 +75,8 @@ boolean intersectsPipes() {
 void teleportPipes() {
   upperPipeHeight = (int) random(100, 400);
   pipeX = 0;
+lowerPipeTop = upperPipeHeight + pipeGap;
+lowerPipeHeight = height - upperPipeHeight - pipeGap;
+score+= 1;
   pipe2X = 0;
 }
