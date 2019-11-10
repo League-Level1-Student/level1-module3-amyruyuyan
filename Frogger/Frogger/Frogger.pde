@@ -19,10 +19,17 @@ void draw(){
   
   car2.moveleft();
   car2.display();
+  if (intersects(car2)){
+    frogX = 400;
+    frogY = 575;
+  }
   
   car3.moveright();
   car3.display();
-  
+  if (intersects(car3)){
+    frogX = 400;
+    frogY = 575;
+  }
 }
 void setup(){
   size(800, 600);
@@ -33,22 +40,22 @@ void keyPressed()
       if(key == CODED){
             if(keyCode == UP && frogY > 0)
             {
-              frogY -= 15;
+              frogY -= 5;
                   //Frog Y position goes up
             }
             else if(keyCode == DOWN && frogY < 600)
             {
-              frogY += 15;
+              frogY += 5;
                   //Frog Y position goes down
             }
             else if(keyCode == RIGHT && frogX < 800)
             {
-              frogX += 15;
+              frogX += 5;
                   //Frog X position goes right
             }
             else if(keyCode == LEFT && frogX > 0) 
             {
-              frogX -= 15; 
+              frogX -= 5; 
                   //Frog X position goes left
             }
       }
@@ -69,6 +76,7 @@ class Car{
    int carX = 0;
    int carY = 0;
    int carSpeed = 5;
+   int carSize = 50;
    
    void moveleft(){
      carX=carX-carSpeed;
@@ -96,9 +104,8 @@ class Car{
    }
    
    int getSize(){
-     return 
+     return carSize;
    }
-
 
    Car (int carX, int carY, int carSpeed){
      this.carX = carX;
@@ -108,8 +115,7 @@ class Car{
    void display()
 {
       fill(#A5C1F0);
-      rect(carX, carY, 100, 50);
-      
-      
+      rect(carX, carY, carSize, carSize);
+     
 }
 }
